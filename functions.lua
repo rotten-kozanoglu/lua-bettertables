@@ -196,4 +196,14 @@ function table.indexof(t, value)
     return nil
 end
 
+-- table.removevalues removes values from a table
+function table.removevalues(t, values)
+    for i, v in ipairs(values) do
+        local index = table.indexof(t, v)
+        if index then
+            table.remove(t, index)
+        end
+    end
+end
+
 
