@@ -1,5 +1,4 @@
 -- table sum, calculates the sum of all values in a table 
-
 function table.sum(t)
     local sum = 0
     for i, v in ipairs(t) do
@@ -11,7 +10,6 @@ function table.sum(t)
 end
 
 -- table.filter, filters a table based on a statement
-
 function table.filter(t, filterFunc)
     local filtered = {}
     for i, v in ipairs(t) do
@@ -205,5 +203,3 @@ function table.removevalues(t, values)
         end
     end
 end
-
-
