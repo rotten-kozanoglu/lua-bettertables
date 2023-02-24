@@ -203,3 +203,93 @@ function table.removevalues(t, values)
         end
     end
 end
+
+-- table.foreach, javascript style foreach function
+
+function table.foreach(t, callback)
+    for i, v in ipairs(t) do
+        callback(v, i)
+    end
+end
+
+-- table.splice javascript style splice function
+
+function table.splice(t, start, deleteCount, ...)
+    local deleted = {}
+    local args = {...}
+    local argCounts = #args
+    local itemCount = #t
+    local actualStart = start < 0 and math.max(itemCount + start, 0) or math.min(start, itemCount)
+    local actualDeleteCount = math.min(math.max(deleteCount, 0), itemCount - actualStart)
+    local k = 0
+    for i = actualStart, actualStart + actualDeleteCount - 1 do
+        k = k + 1
+        deleted[k] = t[i + 1]
+    end
+    local itemCount = itemCount - actualDeleteCount
+    if argCounts < actualDeleteCount then
+        k = actualStart
+        while k < itemCount do
+            t[k + 1] = t[k + actualDeleteCount + 1]
+            k = k + 1
+        end
+        for i = 1, actualDeleteCount - argCounts do
+            t[itemCount + i] = nil
+        end
+    elseif argCounts > actualDeleteCount then
+        k = itemCount - actualDeleteCount
+        while k > actualStart do
+            t[k + actualDeleteCount] = t[k]
+            k = k - 1
+        end
+    end
+    for i = 1, argCounts do
+        t[actualStart + i] = args[i]
+    end
+    return deleted
+end
+
+--table.lastindexof, returns the last index of a value in a table or nil if the value is not found
+function table.lastindexof(t, value)
+    for i = #t, 1, -1 do
+        if t[i] == value then
+            return i
+        end
+    end
+    return nil
+end
+
+-- table.reverse, reverses a table
+function table.reverse(t)
+    local reversed = {}
+    for i = #t, 1, -1 do
+        table.insert(reversed, t[i])
+    end
+    return reversed
+end
+
+-- table.max and table.min, returns the maximum and minimum values in a table respectively
+function table.max(t)
+    local max = t[1]
+    for i = 2, #t do
+        if t[i] > max then
+            max = t[i]
+        end
+    end
+    return max
+end
+
+function table.min(t)
+    local min = t[1]
+    for i = 2, #t do
+        if t[i] < min then
+            min = t[i]
+        end
+    end
+    return min
+end
+
+--footnote table.max alike function already exists in the standard library, but it is not documented. It is called table.maxn. It is not recommended to use it, because it is not documented and it is not guaranteed to work in the future.
+--(what I mean by not documented is that it is listed in library but not have any example of how to use it.)
+
+
