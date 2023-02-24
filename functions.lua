@@ -31,7 +31,6 @@ function table.map(t, mapFunc)
 end
 
 -- table.reduce, reduces a table based on a statement
-
 function table.reduce(t, reduceFunc, initialValue)
     local reduced = initialValue or t[1]
     local startIndex = initialValue and 1 or 2
@@ -75,15 +74,6 @@ function table.copy(t)
     end
     return copy
 end
-
---[[example usage
-local t1 = {1, 2, {3, 4}}
-local t2 = table.copy(t1)
-t1[1] = 10
-t1[3][1] = 30
-print(t1[1], t1[3][1]) -- Output: 10 30
-print(t2[1], t2[3][1]) -- Output: 1 3
-]]
 
 -- table.merge, merges two tables
 
