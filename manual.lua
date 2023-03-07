@@ -318,6 +318,8 @@ print(table.min(t))
 
 -- output is 1
 
+-- have a nice work
+
 
 
 
